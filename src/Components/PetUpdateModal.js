@@ -2,32 +2,27 @@ import { Modal, Button, Form } from "react-bootstrap";
 import React, { useState } from "react";
 import petStore from "../petStore";
 
-const PetCreateModal = () => {
+const PetUpdateModal = ({ selectedPet }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClose = () => setIsOpen(false);
   const handleShow = () => setIsOpen(true);
-  const [addPet, setAddPet] = useState({
-    name: "",
-    type: "",
-    image: "",
-  });
+  const [updatePet, setUpdatePet] = useState(selectedPet);
 
   const handleChange = (event) => {
-    setAddPet({ ...addPet, [event.target.name]: event.target.value });
+    setUpdatePet({ ...updatePet, [event.target.name]: event.target.value });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    petStore.handleAddPet(addPet);
+    petStore.handleUpdatePet(updatePet);
     handleClose();
-    console.log(addPet);
   };
 
   return (
     <>
       <Button class="btn btn-info" variant="primary" onClick={handleShow}>
-        Add Pet
+        Update Pet
       </Button>
 
       <Modal
@@ -37,16 +32,17 @@ const PetCreateModal = () => {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Add a Pet</Modal.Title>
+          <Modal.Title>Update Pet Data</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Pet Name:</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter pet name"
                 onChange={handleChange}
+                value={updatePet.name}
                 name="name"
               />
             </Form.Group>
@@ -57,6 +53,7 @@ const PetCreateModal = () => {
                 type="text"
                 placeholder="Enter pet type"
                 onChange={handleChange}
+                value={updatePet.type}
                 name="type"
               />
             </Form.Group>
@@ -66,11 +63,11 @@ const PetCreateModal = () => {
                 type="text"
                 onChange={handleChange}
                 placeholder="Paste pet image URL"
+                value={updatePet.image}
                 name="image"
               />
             </Form.Group>
-
-            <Button variant="primary" type="submit" onClick={handleSubmit}>
+            <Button variant="primary" type="submit">
               Submit
             </Button>
           </Form>
@@ -80,4 +77,4 @@ const PetCreateModal = () => {
   );
 };
 
-export default PetCreateModal;
+export default PetUpdateModal;

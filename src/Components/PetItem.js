@@ -1,5 +1,7 @@
-import petStore from '../petStore';
-export default function PetItem(props) {
+import petStore from "../petStore";
+import PetUpdateModal from "./PetUpdateModal";
+
+function PetItem(props) {
   const pet = props.pet;
   return (
     <div class="col-lg-4 col-md-8 col-sm-10">
@@ -14,8 +16,11 @@ export default function PetItem(props) {
           >
             Adopt
           </button>
+          <br />
+          <PetUpdateModal selectedPet={pet} />
         </div>
       </div>
     </div>
   );
 }
+export default PetItem;

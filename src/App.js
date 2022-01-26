@@ -7,6 +7,7 @@ import "./assets/css/tiny-slider.css";
 import PetsList from "./Components/PetsList";
 import petStore from "./petStore";
 import PetCreateModal from "./Components/PetCreateModal";
+import PetUpdateModal from "./Components/PetUpdateModal";
 
 function App() {
   const pets = petStore.pets;
